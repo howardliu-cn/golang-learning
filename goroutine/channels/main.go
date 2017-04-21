@@ -15,10 +15,10 @@ func main() {
 	c := make(chan int)
 	go sum(a[0:1], c)
 	fmt.Println(<-c)
-	go sum(a[:len(a) / 2], c)
+	go sum(a[:len(a)/2], c)
 	fmt.Println(<-c)
-	go sum(a[:len(a) / 2], c)
-	go sum(a[len(a) / 2:], c)
+	go sum(a[:len(a)/2], c)
+	go sum(a[len(a)/2:], c)
 	x, y := <-c, <-c
-	fmt.Println(x, y, x + y)
+	fmt.Println(x, y, x+y)
 }

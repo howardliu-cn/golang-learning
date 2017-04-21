@@ -1,9 +1,9 @@
 package main
 
 import (
-	_ "github.com/go-sql-driver/mysql"
 	"database/sql"
 	"fmt"
+	_ "github.com/go-sql-driver/mysql"
 )
 
 func checkErr(err error) {
@@ -53,15 +53,14 @@ func main() {
 		fmt.Println(uid, username, department, created)
 	}
 
-	stmt,err=db.Prepare("delete from userinfo where uid=?")
+	stmt, err = db.Prepare("delete from userinfo where uid=?")
 	checkErr(err)
 
-	res,err=stmt.Exec(id)
+	res, err = stmt.Exec(id)
 	checkErr(err)
 
-	affect,err=res.RowsAffected()
+	affect, err = res.RowsAffected()
 	checkErr(err)
 
 	fmt.Println(affect)
 }
-

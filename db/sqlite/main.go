@@ -3,8 +3,8 @@ package main
 import (
 	"database/sql"
 	"fmt"
-	"time"
 	_ "github.com/mattn/go-sqlite3"
+	"time"
 )
 
 func main() {
@@ -66,4 +66,3 @@ func checkErr(err error) {
 		panic(err)
 	}
 }
-

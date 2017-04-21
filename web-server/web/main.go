@@ -2,9 +2,9 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"net/http"
 	"strings"
-	"log"
 )
 
 func sayHelloName(w http.ResponseWriter, r *http.Request) {
@@ -27,5 +27,3 @@ func main() {
 		log.Fatal("ListenAndServer: ", err)
 	}
 }
-
-

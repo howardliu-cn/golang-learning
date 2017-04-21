@@ -25,4 +25,3 @@ func main() {
 	mux := &MyMux{}
 	http.ListenAndServe(":9090", mux)
 }
-
