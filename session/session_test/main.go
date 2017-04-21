@@ -1,8 +1,8 @@
 package main
 
 import (
-	"net/http"
 	"golang-learning/session"
+	"net/http"
 	"text/template"
 	"time"
 )
@@ -36,7 +36,7 @@ func count(w http.ResponseWriter, r *http.Request) {
 	createtime := sess.Get("createtime")
 	if createtime == nil {
 		sess.Set("createtime", time.Now().Unix())
-	} else if (createtime.(int64) + 360 < (time.Now().Unix())) {
+	} else if createtime.(int64)+360 < (time.Now().Unix()) {
 		globalSessions.SessionDestroy(w, r)
 		sess = globalSessions.SessionStart(w, r)
 	}

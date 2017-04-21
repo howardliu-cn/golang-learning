@@ -2,12 +2,12 @@ package session
 
 import (
 	"container/list"
-	"time"
-	"sync"
 	"golang-learning/session"
+	"sync"
+	"time"
 )
 
-var pder = &Provider{list:list.New()}
+var pder = &Provider{list: list.New()}
 
 func init() {
 	pder.sessions = make(map[string]*list.Element, 0)
@@ -56,7 +56,7 @@ func (pder *Provider) SessionInit(sid string) (session.Session, error) {
 	pder.lock.Lock()
 	defer pder.lock.Unlock()
 	v := make(map[interface{}]interface{}, 0)
-	newsess := &SessionStore{sid:sid, timeAccessed:time.Now(), value:v}
+	newsess := &SessionStore{sid: sid, timeAccessed: time.Now(), value: v}
 	element := pder.list.PushBack(newsess)
 	pder.sessions[sid] = element
 	return newsess, nil

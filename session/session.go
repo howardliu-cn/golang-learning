@@ -1,13 +1,13 @@
 package session
 
 import (
-	"sync"
-	"fmt"
-	"io"
 	"crypto/rand"
 	"encoding/base64"
+	"fmt"
+	"io"
 	"net/http"
 	"net/url"
+	"sync"
 	"time"
 )
 
@@ -37,7 +37,7 @@ func NewManager(provideName, cookieName string, maxlifetime int64) (*Manager, er
 	if !ok {
 		return nil, fmt.Errorf("session: unknown provide %q (forgotten import?)", provideName)
 	}
-	return &Manager{provider:provider, cookieName:cookieName, maxlifetime:maxlifetime}
+	return &Manager{provider: provider, cookieName: cookieName, maxlifetime: maxlifetime}
 }
 
 var provides = make(map[string]Provider)
@@ -67,7 +67,7 @@ func (manager *Manager) SessionStart(w http.ResponseWriter, r *http.Request) (se
 	if err != nil || cookie.Value == "" {
 		sid := manager.sessionId()
 		session, _ = manager.provider.SessionInit(sid)
-		cookie := http.Cookie{Name:manager.cookieName, Value:url.QueryEscape(sid), Path:"/", HttpOnly:true, MaxAge:int(manager.maxlifetime)}
+		cookie := http.Cookie{Name: manager.cookieName, Value: url.QueryEscape(sid), Path: "/", HttpOnly: true, MaxAge: int(manager.maxlifetime)}
 		http.SetCookie(w, &cookie)
 	} else {
 		sid, _ := url.QueryUnescape(cookie.Value)
@@ -85,7 +85,7 @@ func (manager *Manager) SessionDestroy(w http.ResponseWriter, r *http.Request) {
 		defer manager.lock.Unlock()
 		manager.provider.SessionDestroy(cookie.Value)
 		expiration := time.Now()
-		cookie := http.Cookie{Name:manager.cookieName, Path:"/", HttpOnly:true, Expires:expiration, MaxAge:-1}
+		cookie := http.Cookie{Name: manager.cookieName, Path: "/", HttpOnly: true, Expires: expiration, MaxAge: -1}
 		http.SetCookie(w, &cookie)
 	}
 }
